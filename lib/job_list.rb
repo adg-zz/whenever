@@ -79,6 +79,23 @@ module Whenever
       job ? job.schedule : "not found"
     end
     
+    # Given 2.days as frequency returns {:days => 2}
+    def frequency_parts
+      # From ActiveSupport::Duration#inspect
+      @current_time_scope.parts.inject(::Hash.new(0)) { |h,part| h[part.first] += part.last; h }
+    end
+    
+    # Given 2.days as frequency returns 2
+    def frequency_num
+      frequency_parts.values.first
+    end
+    
+    # Given 2.days as frequency returns 'days'
+    def frequency_interval
+      interval = frequency_parts.keys.first.to_s
+      frequency_num == 1 ? interval.singularize : interval
+    end
+    
   private
   
     def environment_variables
