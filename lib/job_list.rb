@@ -11,11 +11,15 @@ module Whenever
           if options[:string]
             options[:string]
           elsif options[:file]
-            File.read(options[:file])
+            file_read = File.read(options[:file])
           end
       end
 
-      eval(config)
+      if file_read
+        eval(ERB.new(file_read).result(binding))
+      else
+        eval(config)
+      end
     end
     
     def set(variable, value)
