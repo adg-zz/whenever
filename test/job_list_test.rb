@@ -4,7 +4,7 @@ class JobListTest < Test::Unit::TestCase
 
   context "A JobList for days-based jobs" do
     setup do
-      @scheduled = <<-JOBS
+      jobs = <<-JOBS
         every 1.day do
           runner 'foo'
         end
@@ -14,7 +14,7 @@ class JobListTest < Test::Unit::TestCase
         end
       JOBS
       
-      @job_list = Whenever::JobList.new(:string => @scheduled)
+      @job_list = Whenever::JobList.new(:string => jobs)
     end
 
     should "have scheduled jobs" do

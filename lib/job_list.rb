@@ -60,20 +60,6 @@ module Whenever
       [environment_variables, cron_jobs].compact.join
     end
     
-    # def jobs_with_time
-    #   returning instances = [] do
-    #     @jobs.each do |time, jobs|
-    #       jobs.each do |j|
-    #         j.instance_variable_set(:@time, time)
-    #         j.class_eval do
-    #           attr_reader :time
-    #         end
-    #         instances << j
-    #       end
-    #     end
-    #   end
-    # end
-    
     def scheduled_jobs
       @scheduled_jobs ||= begin
         returning scheduled = [] do
