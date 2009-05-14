@@ -1,6 +1,6 @@
 module Whenever
   class JobList
-  
+    
     def initialize(options)
       @jobs = Hash.new
       @env  = Hash.new
@@ -60,42 +60,37 @@ module Whenever
       [environment_variables, cron_jobs].compact.join
     end
     
-    def jobs_with_time
-      returning instances = [] do
-        @jobs.each do |time, jobs|
-          jobs.each do |j|
-            j.instance_variable_set(:@time, time)
-            j.class_eval do
-              attr_reader :time
+    # def jobs_with_time
+    #   returning instances = [] do
+    #     @jobs.each do |time, jobs|
+    #       jobs.each do |j|
+    #         j.instance_variable_set(:@time, time)
+    #         j.class_eval do
+    #           attr_reader :time
+    #         end
+    #         instances << j
+    #       end
+    #     end
+    #   end
+    # end
+    
+    def scheduled_jobs
+      @scheduled_jobs ||= begin
+        returning scheduled = [] do
+          @jobs.each do |time, jobs|
+            jobs.each do |j|
+              scheduled << ScheduledJob.new(j, time)
             end
-            instances << j
           end
         end
       end
     end
     
     def schedule_for_task(task)
-      job = jobs_with_time.detect { |j| j.task =~ Regexp.new(task) }
-      job ? job.schedule : "not found"
+      scheduled_job = scheduled_jobs.detect { |sj| sj.task =~ Regexp.new(task) }
+      scheduled_job ? scheduled_job.schedule : "Schedule for #{task} not found"
     end
-    
-    # Given 2.days as frequency returns {:days => 2}
-    def frequency_parts
-      # From ActiveSupport::Duration#inspect
-      @current_time_scope.parts.inject(::Hash.new(0)) { |h,part| h[part.first] += part.last; h }
-    end
-    
-    # Given 2.days as frequency returns 2
-    def frequency_num
-      frequency_parts.values.first
-    end
-    
-    # Given 2.days as frequency returns 'days'
-    def frequency_interval
-      interval = frequency_parts.keys.first.to_s
-      frequency_num == 1 ? interval.singularize : interval
-    end
-    
+  
   private
   
     def environment_variables

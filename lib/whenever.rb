@@ -21,6 +21,7 @@ job_list
 job_types/default 
 job_types/rake_task 
 job_types/runner 
-outputs/cron
+outputs/cron 
 command_line 
+scheduled_job 
 }.each { |file| require	File.expand_path(File.dirname(__FILE__) + "/#{file}") }

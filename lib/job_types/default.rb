@@ -16,17 +16,6 @@ module Whenever
         task
       end
       
-      def schedule
-        returning '' do |ret|
-          ret << "every #{@time.inspect}"
-          if @at.is_a?(String)
-            ret << " at #{@at}"
-          elsif @at.is_a?(Time)
-            ret << " at #{@at.to_s(:date_and_time)}"
-          end
-        end
-      end
-      
     protected
       
       def path_required
