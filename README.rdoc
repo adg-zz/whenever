@@ -89,6 +89,16 @@ If you wish to simply overwrite your crontab file each time you deploy, use the 
 
 By mixing and matching the <code>--load-file</code> and <code>--user</code> options with your various :roles in Capistrano it is entirely possible to deploy different crontab schedules under different users to all your various servers. Get creative!
 
+== ADG changes
+
+Added a ScheduledJob class (the Job namespace is taken).
+
+Added methods on JobList to: compose ScheduledJob objects, fetch the whenever syntax schedule for a given task.
+
+ScheduledJob is similar to the @jobs hash that JobList holds, with the main difference being that it holds its own time/frequency data.
+
+The overall approach of ADG changes, at least for now, is to add to existing behavior, not modify it.
+
 == Credit
 
 Whenever was created for use at Inkling (http://inklingmarkets.com) where I work. Their take on it: http://blog.inklingmarkets.com/2009/02/whenever-easy-way-to-do-cron-jobs-from.html
