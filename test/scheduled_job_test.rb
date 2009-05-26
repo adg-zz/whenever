@@ -32,5 +32,16 @@ class ScheduledJobTest < Test::Unit::TestCase
       assert_equal 'day', @scheduled_job_1.frequency_interval
       assert_equal 'days', @scheduled_job_2.frequency_interval
     end
+    
+    should "provide schedule data" do
+      expected_keys = [:frequency, :interval, :at]
+      schedule = @scheduled_job_2.schedule_data
+      expected_keys.each do |k|
+        assert schedule.keys.include?(k)
+      end
+      assert_equal 2, schedule[:frequency]
+      assert_equal 'days', schedule[:interval]
+      assert_equal '4:30am', schedule[:at]
+    end
   end
 end

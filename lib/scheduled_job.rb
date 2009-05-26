@@ -20,6 +20,10 @@ module Whenever
       end
     end
     
+    def schedule_data
+      { :frequency => frequency_num, :interval => frequency_interval, :at => at }
+    end
+    
     # Given 2.days as frequency returns {:days => 2}
     def frequency_parts
       # Lifted from ActiveSupport::Duration#inspect
