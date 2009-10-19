@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{whenever}
+  s.name = %q{adg-whenever}
   s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/adg/whenever}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Whenever", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{whenever}
+  # s.rubyforge_project = %q{whenever}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Provides clean ruby syntax for defining messy cron jobs and running them Whenever.}
   s.test_files = ["test/command_line_test.rb", "test/cron_test.rb", "test/job_list_test.rb", "test/output_command_test.rb", "test/output_env_test.rb", "test/output_rake_test.rb", "test/output_runner_test.rb", "test/test_helper.rb"]
